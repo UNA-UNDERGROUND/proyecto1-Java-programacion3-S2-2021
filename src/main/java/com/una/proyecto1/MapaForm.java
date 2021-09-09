@@ -1,10 +1,6 @@
+package com.una.proyecto1;
 
 public class MapaForm {
-
-
-}
-
-
 
 public void setColor(){
    this.sanjose.addMouseListener(new Color (Color.red));
@@ -16,4 +12,5 @@ public void setColor(){
    this.cartago.addMouseListener(cnew Color (Color.orange));
    
 
+}
 }
