@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.una.proyecto1;
+package com.una.proyecto1.view;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import java.awt.Dimension;
+import java.awt.Point;
 import javax.swing.JLabel;
-import javax.swing.border.Border;
-import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseAdapter;
 
 /**
  *
@@ -30,10 +30,8 @@ public class Mapa extends javax.swing.JFrame {
 		Dimension dim = new Dimension(600, 440);
 		mapa.setSize(dim);
 
-		Border border = BorderFactory.createLineBorder(Color.ORANGE);
-		mapa.setBorder(border);
-
 		add(mapa);
+		setResizable(false);
 		setPreferredSize(dim);
 		pack();
 	}
@@ -46,12 +44,24 @@ public class Mapa extends javax.swing.JFrame {
 			String ruta = "C:\\Users\\jongu\\source\\paula\\proyecto1-Java-programacion3-S2-2021\\assets\\provincias\\areas.png";
 			ImageIcon iconLogo = new ImageIcon(ruta);
 			mapa.setIcon(iconLogo);
-			System.out.println(mapa.getSize());
+
+			// eventos
+			addMouseListener(new MouseAdapter() {
+				public void mousePressed(MouseEvent me) {
+					onMouseClick(me);
+				}
+			});
 
 		} catch (Exception e) {
 			System.err.println(e.getLocalizedMessage());
 		}
 	}
 
+	void onMouseClick(MouseEvent me) {
+		conteo++;
+		System.out.println("puntos.add(new Point(" + me.getX() + ", " + me.getY() + ")); //" + conteo);
+	}
+
 	JLabel mapa;
+	int conteo = 0;
 }

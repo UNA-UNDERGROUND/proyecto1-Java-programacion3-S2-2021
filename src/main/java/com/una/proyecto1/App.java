@@ -5,6 +5,8 @@
  */
 package com.una.proyecto1;
 
+import com.una.proyecto1.view.Mapa;
+
 /**
  *
  * @author jongu
