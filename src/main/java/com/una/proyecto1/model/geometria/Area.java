@@ -11,7 +11,7 @@ public class Area extends Rectangulo{
 		formas = new ArrayList<>();
 	}
 
-	void agregarForma(Forma f) {
+	public void add(Forma f) {
 		formas.add(f);
 		for (Punto p : f.getPuntos()) {
 			if (superior == null) {
