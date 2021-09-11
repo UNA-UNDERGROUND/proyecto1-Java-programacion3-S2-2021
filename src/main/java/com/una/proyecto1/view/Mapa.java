@@ -7,8 +7,10 @@ package com.una.proyecto1.view;
 
 import javax.swing.ImageIcon;
 import java.awt.Dimension;
-import java.awt.Point;
 import javax.swing.JLabel;
+
+import com.una.proyecto1.model.geometria.Punto;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
@@ -21,6 +23,7 @@ public class Mapa extends javax.swing.JFrame {
 	public Mapa() {
 		InitComponents();
 		init();
+		mapaProvincias = new com.una.proyecto1.model.Mapa();
 	}
 
 	void InitComponents() {
@@ -41,27 +44,47 @@ public class Mapa extends javax.swing.JFrame {
 
 			setTitle("Clientes");
 
-			String ruta = "C:\\Users\\jongu\\source\\paula\\proyecto1-Java-programacion3-S2-2021\\assets\\provincias\\areas.png";
-			ImageIcon iconLogo = new ImageIcon(ruta);
+			String ruta = "/mapa/0.png";
+			// Image imagenMapa = new ImageIcon();
+
+			ImageIcon iconLogo = new ImageIcon(RAIZ + ruta);
 			mapa.setIcon(iconLogo);
 
 			// eventos
-			addMouseListener(new MouseAdapter() {
-				public void mousePressed(MouseEvent me) {
-					onMouseClick(me);
+			addMouseMotionListener(new MouseAdapter() {
+				@Override
+				public void mouseMoved(MouseEvent me) {
+					onMouseMoved(me);
 				}
-			});
 
+			});
 		} catch (Exception e) {
 			System.err.println(e.getLocalizedMessage());
 		}
 	}
 
+	void onMouseMoved(MouseEvent me) {
+		Integer provincia = mapaProvincias.colisiona(new Punto(me.getX(), me.getY()));
+		ImageIcon pronvincia = new ImageIcon(RAIZ + "/mapa/" + provincia + ".png");
+		mapa.setIcon(pronvincia);
+	}
+
 	void onMouseClick(MouseEvent me) {
-		conteo++;
-		System.out.println("puntos.add(new Point(" + me.getX() + ", " + me.getY() + ")); //" + conteo);
+		mapab = !mapab;
+		String ruta = "";
+		if (mapab) {
+			ruta = "C:\\Users\\jongu\\source\\paula\\proyecto1-Java-programacion3-S2-2021\\assets\\provincias\\areas.png";
+		} else {
+			ruta = "C:\\Users\\jongu\\source\\paula\\proyecto1-Java-programacion3-S2-2021\\assets\\provincias\\00-CostaRica.png";
+		}
+		ImageIcon iconLogo = new ImageIcon(ruta);
+		mapa.setIcon(iconLogo);
 	}
 
 	JLabel mapa;
+	com.una.proyecto1.model.Mapa mapaProvincias;
 	int conteo = 0;
+	boolean mapab = true;
+
+	static final String RAIZ = "C:/Users/jongu/source/paula/proyecto1-Java-programacion3-S2-2021/src/main/resources";
 }
