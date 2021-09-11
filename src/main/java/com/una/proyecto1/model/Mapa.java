@@ -111,7 +111,7 @@ public class Mapa {
 		provincias.add(limon);
 	}
 
-	int colisiona(Punto p) {
+	public int colisiona(Punto p) {
 		for (int i = 0; i < 7; i++) {
 			if (provincias.get(i).colisiona(p)) {
 				return i + 1;
