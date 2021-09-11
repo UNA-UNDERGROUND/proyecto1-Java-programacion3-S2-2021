@@ -16,7 +16,7 @@ public class Area extends Rectangulo{
 		for (Punto p : f.getPuntos()) {
 			if (superior == null) {
 				superior = new Punto(p);
-				superior = new Punto(p);
+				inferior = new Punto(p);
 			} else {
 				if (superior.getX() > p.getX()) {
 					superior.setX(p.getX());
