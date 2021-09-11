@@ -64,21 +64,10 @@ public class Mapa extends javax.swing.JFrame {
 	}
 
 	void onMouseMoved(MouseEvent me) {
-		Integer provincia = mapaProvincias.colisiona(new Punto(me.getX(), me.getY()));
-		ImageIcon pronvincia = new ImageIcon(RAIZ + "/mapa/" + provincia + ".png");
-		mapa.setIcon(pronvincia);
-	}
-
-	void onMouseClick(MouseEvent me) {
-		mapab = !mapab;
-		String ruta = "";
-		if (mapab) {
-			ruta = "C:\\Users\\jongu\\source\\paula\\proyecto1-Java-programacion3-S2-2021\\assets\\provincias\\areas.png";
-		} else {
-			ruta = "C:\\Users\\jongu\\source\\paula\\proyecto1-Java-programacion3-S2-2021\\assets\\provincias\\00-CostaRica.png";
-		}
-		ImageIcon iconLogo = new ImageIcon(ruta);
-		mapa.setIcon(iconLogo);
+		Integer numProvincia = mapaProvincias.colisiona(new Punto(me.getX(), me.getY()));
+		String ruta = "mapa/" + numProvincia + ".png";
+		ImageIcon provincia = new ImageIcon(ClassLoader.getSystemResource(ruta));
+		mapa.setIcon(provincia);
 	}
 
 	JLabel mapa;
