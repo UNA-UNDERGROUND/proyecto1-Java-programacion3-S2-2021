@@ -44,10 +44,10 @@ public class Mapa extends javax.swing.JFrame {
 
 			setTitle("Clientes");
 
-			String ruta = "/mapa/0.png";
+			String ruta = "mapa/0.png";
 			// Image imagenMapa = new ImageIcon();
 
-			ImageIcon iconLogo = new ImageIcon(RAIZ + ruta);
+			ImageIcon iconLogo = new ImageIcon(ClassLoader.getSystemResource(ruta));
 			mapa.setIcon(iconLogo);
 
 			// eventos
@@ -74,5 +74,4 @@ public class Mapa extends javax.swing.JFrame {
 	com.una.proyecto1.model.Mapa mapaProvincias;
 	int conteo = 0;
 	boolean mapab = true;
-
 }
