@@ -5,7 +5,7 @@
  */
 package com.una.proyecto1;
 
-import com.una.proyecto1.view.Mapa;
+import com.una.proyecto1.view.RegistroClientes;
 
 /**
  *
@@ -29,7 +29,7 @@ public class App {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Mapa().setVisible(true);
+                new RegistroClientes().setVisible(true);
             }
         });
     }

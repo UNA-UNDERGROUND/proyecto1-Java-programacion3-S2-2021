@@ -18,7 +18,7 @@ import java.awt.event.MouseAdapter;
  *
  * @author jongu
  */
-public class Mapa extends javax.swing.JFrame {
+public final class Mapa extends javax.swing.JPanel {
 
 	public Mapa() {
 		InitComponents();
@@ -27,22 +27,17 @@ public class Mapa extends javax.swing.JFrame {
 	}
 
 	void InitComponents() {
-		setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
 		mapa = new JLabel();
 		mapa.setVerticalAlignment(JLabel.TOP);
 		Dimension dim = new Dimension(600, 440);
 		mapa.setSize(dim);
 
 		add(mapa);
-		setResizable(false);
 		setPreferredSize(dim);
-		pack();
 	}
 
 	void init() {
 		try {
-
-			setTitle("Clientes");
 
 			String ruta = "mapa/0.png";
 			// Image imagenMapa = new ImageIcon();
