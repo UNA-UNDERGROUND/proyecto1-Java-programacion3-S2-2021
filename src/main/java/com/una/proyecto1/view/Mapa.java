@@ -75,5 +75,4 @@ public class Mapa extends javax.swing.JFrame {
 	int conteo = 0;
 	boolean mapab = true;
 
-	static final String RAIZ = "C:/Users/jongu/source/paula/proyecto1-Java-programacion3-S2-2021/src/main/resources";
 }
