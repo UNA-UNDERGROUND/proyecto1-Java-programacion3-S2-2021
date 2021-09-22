@@ -8,14 +8,22 @@ package com.una.proyecto1.view;
 import com.una.proyecto1.view.componentes.MensualidadTableModel;
 
 public class PrestamoClientes extends javax.swing.JFrame {
-
+    private int cedula = 0;
     /**
      * Creates new form PrestamoClientes
+     * @param cedula cedula del cliente
      */
-    public PrestamoClientes() {
+    public PrestamoClientes(int cedula) {
+        this.cedula = cedula;
         initComponents();
+        init();
     }
 
+    void init(){
+        this.setTitle(String.format("Prestamos del cliente %d", cedula));
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
