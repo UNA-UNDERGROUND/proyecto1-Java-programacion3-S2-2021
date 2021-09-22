@@ -9,7 +9,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.una.proyecto1.model.logica.prestamo.Mensualidad;
 
-class MensualidadTableModel extends AbstractTableModel {
+public class MensualidadTableModel extends AbstractTableModel {
 
 	public MensualidadTableModel() {
 		this(new ArrayList<Mensualidad>());
