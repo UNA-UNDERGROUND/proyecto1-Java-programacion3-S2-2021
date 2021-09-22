@@ -9,21 +9,17 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 
-import com.una.proyecto1.model.geometria.Punto;
+import com.una.proyecto1.model.mapa.geometria.Punto;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
-/**
- *
- * @author jongu
- */
 public final class Mapa extends javax.swing.JPanel {
 
 	public Mapa() {
 		InitComponents();
 		init();
-		mapaProvincias = new com.una.proyecto1.model.Mapa();
+		mapaProvincias = new com.una.proyecto1.model.mapa.Mapa();
 	}
 
 	void InitComponents() {
@@ -40,8 +36,6 @@ public final class Mapa extends javax.swing.JPanel {
 		try {
 
 			String ruta = "mapa/0.png";
-			// Image imagenMapa = new ImageIcon();
-
 			ImageIcon iconLogo = new ImageIcon(ClassLoader.getSystemResource(ruta));
 			mapa.setIcon(iconLogo);
 
@@ -66,7 +60,7 @@ public final class Mapa extends javax.swing.JPanel {
 	}
 
 	JLabel mapa;
-	com.una.proyecto1.model.Mapa mapaProvincias;
+	com.una.proyecto1.model.mapa.Mapa mapaProvincias;
 	int conteo = 0;
 	boolean mapab = true;
 }

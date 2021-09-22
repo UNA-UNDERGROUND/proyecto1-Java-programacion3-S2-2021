@@ -1,10 +1,10 @@
-package com.una.proyecto1.model.geometria.formas;
+package com.una.proyecto1.model.mapa.geometria.formas;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.una.proyecto1.model.geometria.Forma;
-import com.una.proyecto1.model.geometria.Punto;
+import com.una.proyecto1.model.mapa.geometria.Forma;
+import com.una.proyecto1.model.mapa.geometria.Punto;
 
 public class Rectangulo implements Forma {
 	public Rectangulo(Punto superior, Punto inferior){

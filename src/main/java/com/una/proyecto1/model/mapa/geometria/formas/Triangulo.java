@@ -1,12 +1,12 @@
-package com.una.proyecto1.model.geometria.formas;
+package com.una.proyecto1.model.mapa.geometria.formas;
 
 // colision basada en: https://stackoverflow.com/questions/2049582/how-to-determine-if-a-point-is-in-a-2d-triangle
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.una.proyecto1.model.geometria.Forma;
-import com.una.proyecto1.model.geometria.Punto;
+import com.una.proyecto1.model.mapa.geometria.Forma;
+import com.una.proyecto1.model.mapa.geometria.Punto;
 
 public class Triangulo implements Forma {
 

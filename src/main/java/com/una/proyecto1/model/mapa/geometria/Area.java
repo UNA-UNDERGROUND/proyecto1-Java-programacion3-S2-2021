@@ -1,9 +1,9 @@
-package com.una.proyecto1.model.geometria;
+package com.una.proyecto1.model.mapa.geometria;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.una.proyecto1.model.geometria.formas.Rectangulo;
+import com.una.proyecto1.model.mapa.geometria.formas.Rectangulo;
 
 public class Area extends Rectangulo{
 	public Area() {

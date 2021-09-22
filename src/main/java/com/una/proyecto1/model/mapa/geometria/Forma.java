@@ -1,4 +1,4 @@
-package com.una.proyecto1.model.geometria;
+package com.una.proyecto1.model.mapa.geometria;
 
 import java.util.List;
 

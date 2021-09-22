@@ -1,11 +1,11 @@
-package com.una.proyecto1.model;
+package com.una.proyecto1.model.mapa;
 
 import java.util.ArrayList;
 
-import com.una.proyecto1.model.geometria.Area;
-import com.una.proyecto1.model.geometria.Punto;
-import com.una.proyecto1.model.geometria.formas.Rectangulo;
-import com.una.proyecto1.model.geometria.formas.Triangulo;
+import com.una.proyecto1.model.mapa.geometria.Area;
+import com.una.proyecto1.model.mapa.geometria.Punto;
+import com.una.proyecto1.model.mapa.geometria.formas.Rectangulo;
+import com.una.proyecto1.model.mapa.geometria.formas.Triangulo;
 
 enum CODIGO_PROVINCIA {
 	SAN_JOSE(1), ALAJUELA(2), CARTAGO(3), HEREDIA(4), GUANACASTE(5), PUNTARENAS(6), LIMON(7);
