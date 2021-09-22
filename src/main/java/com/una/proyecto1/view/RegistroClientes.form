@@ -47,7 +47,11 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="comboDistrito" min="-2" pref="125" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="comboDistrito" min="-2" pref="125" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -106,6 +110,7 @@
                           <Component id="txtProvincia" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="comboCanton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="comboDistrito" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton1" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelMapa" min="-2" max="-2" attributes="0"/>
@@ -209,5 +214,11 @@
         </DimensionLayout>
       </Layout>
     </Container>
+    <Component class="javax.swing.JButton" name="jButton1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Guardar"/>
+        <Property name="actionCommand" type="java.lang.String" value=""/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
