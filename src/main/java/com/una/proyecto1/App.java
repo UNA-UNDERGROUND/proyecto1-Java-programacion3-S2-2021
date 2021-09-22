@@ -6,6 +6,7 @@
 package com.una.proyecto1;
 
 import com.una.proyecto1.view.RegistroClientes;
+import javax.swing.UIManager;
 
 /**
  *
@@ -15,18 +16,10 @@ public class App {
 
     static void mostrarUI(){
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
             System.err.println(ex.getLocalizedMessage());
         }
-        // </editor-fold>
-
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RegistroClientes().setVisible(true);
