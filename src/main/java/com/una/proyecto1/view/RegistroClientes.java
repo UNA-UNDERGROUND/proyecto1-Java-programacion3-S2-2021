@@ -6,13 +6,14 @@
 package com.una.proyecto1.view;
 
 import java.awt.BorderLayout;
+
+import com.una.proyecto1.controller.ControladorPrestamo;
+import com.una.proyecto1.model.util.Listener;
+
 import static javax.swing.JOptionPane.showMessageDialog;
 
-/**
- *
- * @author jongu
- */
-public class RegistroClientes extends javax.swing.JFrame {
+
+public class RegistroClientes extends javax.swing.JFrame implements Listener {
 
     /**
      * Creates new form RegistroClientes
@@ -20,12 +21,14 @@ public class RegistroClientes extends javax.swing.JFrame {
     public RegistroClientes() {
         initComponents();
         init();
+
     }
 
     private void init() {
         panelMapaInterno = new Mapa();
         panelMapa.setLayout(new BorderLayout());
         panelMapa.add(panelMapaInterno, BorderLayout.NORTH);
+        ControladorPrestamo.getInstancia().setProvinciaListener(this);
     }
 
     /**
@@ -252,4 +255,10 @@ public class RegistroClientes extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private Mapa panelMapaInterno;
+
+    @Override
+    public void notificar() {
+        txtProvincia.setText(ControladorPrestamo.getInstancia().getProvinciaActual());
+        
+    }
 }

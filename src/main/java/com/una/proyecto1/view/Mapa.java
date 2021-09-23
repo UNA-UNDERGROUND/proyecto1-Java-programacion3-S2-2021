@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import java.awt.Dimension;
 import javax.swing.JLabel;
 
+import com.una.proyecto1.controller.ControladorPrestamo;
 import com.una.proyecto1.model.mapa.geometria.Punto;
 
 import java.awt.event.MouseEvent;
@@ -19,7 +20,6 @@ public final class Mapa extends javax.swing.JPanel {
 	public Mapa() {
 		InitComponents();
 		init();
-		mapaProvincias = new com.una.proyecto1.model.mapa.Mapa();
 	}
 
 	void InitComponents() {
@@ -45,22 +45,42 @@ public final class Mapa extends javax.swing.JPanel {
 				public void mouseMoved(MouseEvent me) {
 					onMouseMoved(me);
 				}
-
 			});
+			addMouseListener(new MouseAdapter() {
+				@Override
+				public void mousePressed(MouseEvent me) {
+					onMouseClick(me);
+				}
+			}
+
+			);
 		} catch (Exception e) {
 			System.err.println(e.getLocalizedMessage());
 		}
 	}
 
-	void onMouseMoved(MouseEvent me) {
-		Integer numProvincia = mapaProvincias.colisiona(new Punto(me.getX(), me.getY()));
+	void actualizarMapa(int numProvincia) {
 		String ruta = "mapa/" + numProvincia + ".png";
 		ImageIcon provincia = new ImageIcon(ClassLoader.getSystemResource(ruta));
 		mapa.setIcon(provincia);
 	}
 
+	void onMouseMoved(MouseEvent me) {
+		if (ControladorPrestamo.getInstancia().getCodigoProvincia() == 0) {
+			Integer numProvincia = ControladorPrestamo.getInstancia().getMapa()
+					.colisiona(new Punto(me.getX(), me.getY()));
+			actualizarMapa(numProvincia);
+		}
+	}
+
+	void onMouseClick(MouseEvent me) {
+		int numProvincia = ControladorPrestamo.getInstancia().getMapa().colisiona(new Punto(me.getX(), me.getY()));
+		if (numProvincia != 0) {
+			ControladorPrestamo.getInstancia().setCodigoProvincia(numProvincia);
+			actualizarMapa(numProvincia);
+		}
+
+	}
+
 	JLabel mapa;
-	com.una.proyecto1.model.mapa.Mapa mapaProvincias;
-	int conteo = 0;
-	boolean mapab = true;
 }
