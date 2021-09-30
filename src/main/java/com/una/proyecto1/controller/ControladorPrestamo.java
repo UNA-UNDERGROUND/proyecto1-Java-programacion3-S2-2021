@@ -1,5 +1,9 @@
 package com.una.proyecto1.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.una.proyecto1.model.logica.Cliente;
 import com.una.proyecto1.model.mapa.CodigoProvincia;
 import com.una.proyecto1.model.mapa.Mapa;
 import com.una.proyecto1.model.util.Listener;
@@ -20,9 +24,8 @@ public class ControladorPrestamo {
 
     public void setCodigoProvincia(int provinciaSelec) {
         this.provinciaSelec = provinciaSelec;
-        if (provinciaListener!=null) 
-        {
-           provinciaListener.notificar(); 
+        if (provinciaListener != null) {
+            provinciaListener.notificar();
         }
 
     }
@@ -33,6 +36,29 @@ public class ControladorPrestamo {
 
     public void setProvinciaListener(Listener l) {
         this.provinciaListener = l;
+    }
+
+    List<Cliente> clientes = new ArrayList<>();
+
+    public boolean agregarCliente(Integer id, String nombre, String canton, String provincia, String distrito) {
+        if (recuperarCliente(id) != null) {
+
+            clientes.add(new Cliente(id, nombre, canton, provincia, distrito));
+            return true;
+        }
+
+        return false;
+
+    }
+
+    public Cliente recuperarCliente(Integer id) {
+
+        for (Cliente actual : clientes) {
+            if (actual.getId() == id) {
+                return actual;
+            }
+        }
+        return null;
     }
 
     private Mapa mapa;
@@ -48,4 +74,5 @@ public class ControladorPrestamo {
     }
 
     private static ControladorPrestamo instancia = null;
+
 }
