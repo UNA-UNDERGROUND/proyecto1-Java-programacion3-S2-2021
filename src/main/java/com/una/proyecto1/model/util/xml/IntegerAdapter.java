@@ -1,7 +1,7 @@
-package com.una.proyecto1.model.logica;
+package com.una.proyecto1.model.util.xml;
+
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-    
 public class IntegerAdapter extends XmlAdapter<String, Integer> {
 
     @Override
@@ -14,5 +14,3 @@ public class IntegerAdapter extends XmlAdapter<String, Integer> {
         return i.toString();
     }
 }
-    
-

@@ -1,4 +1,4 @@
-package com.una.proyecto1.model.logica;
+package com.una.proyecto1.model.logica.ubicacion;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +10,10 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.una.proyecto1.model.util.xml.IntegerAdapter;
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-
 public class Canton {
 
     public Canton(String nombre, Integer id, List<Distrito> distritos) {
@@ -58,7 +59,6 @@ public class Canton {
     @XmlID
     @XmlAttribute
     @XmlJavaTypeAdapter(IntegerAdapter.class)
-
     private Integer id;
     private List<Distrito> distritos;
 

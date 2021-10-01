@@ -1,4 +1,6 @@
-package com.una.proyecto1.model.logica;
+package com.una.proyecto1.model.logica.ubicacion;
+
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -7,20 +9,16 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import com.una.proyecto1.model.util.xml.IntegerAdapter;
+
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+public class Provincia {
 
-public class Distrito {
-
-    public Distrito(String nombre, Integer id) {
+    public Provincia(String nombre, Integer id, List<Canton> cantones) {
         this.nombre = nombre;
         this.id = id;
-
-    }
-
-    public Distrito() {
-        id = -1;
-        nombre = "";
+        this.cantones = cantones;
 
     }
 
@@ -40,11 +38,18 @@ public class Distrito {
         this.id = id;
     }
 
+    public List<Canton> getCantones() {
+        return cantones;
+    }
+
+    public void setCantones(List<Canton> cantones) {
+        this.cantones = cantones;
+    }
+
     @XmlID
     @XmlAttribute
     @XmlJavaTypeAdapter(IntegerAdapter.class)
-
     private String nombre;
     private Integer id;
-
+    private List<Canton> cantones;
 }
