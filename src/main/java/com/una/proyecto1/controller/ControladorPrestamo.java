@@ -4,15 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.una.proyecto1.model.logica.Cliente;
+import com.una.proyecto1.model.logica.ubicacion.Provincia;
 import com.una.proyecto1.model.mapa.CodigoProvincia;
 import com.una.proyecto1.model.mapa.Mapa;
 import com.una.proyecto1.model.util.Listener;
+import com.una.proyecto1.model.util.xml.XMLparser;
 
 public class ControladorPrestamo {
 
     private ControladorPrestamo() {
         mapa = new Mapa();
-
+        XMLparser.unmarshall(provincias, "data/provincias.xml", true);
     }
 
     // -- Mapa --
@@ -59,12 +61,14 @@ public class ControladorPrestamo {
     private Mapa mapa;
     private int provinciaSelec = 0;
     List<Cliente> clientes = new ArrayList<>();
+    List<Provincia> provincias = new ArrayList<>();
 
     // -- implementacion patrones --
 
     public void setProvinciaListener(Listener l) {
         this.provinciaListener = l;
     }
+
     private Listener provinciaListener = null;
 
     private static ControladorPrestamo instancia = null;

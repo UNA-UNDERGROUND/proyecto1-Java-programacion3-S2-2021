@@ -16,11 +16,10 @@ import com.una.proyecto1.model.util.xml.IntegerAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Canton {
 
-    public Canton(String nombre, Integer id, List<Distrito> distritos) {
+    public Canton(Integer id, String nombre, List<Distrito> distritos) {
         this.nombre = nombre;
         this.distritos = distritos;
         this.id = id;
-
     }
 
     public Canton() {
@@ -37,8 +36,6 @@ public class Canton {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    private String nombre;
 
     public Integer getId() {
         return id;
@@ -60,6 +57,7 @@ public class Canton {
     @XmlAttribute
     @XmlJavaTypeAdapter(IntegerAdapter.class)
     private Integer id;
+    private String nombre;
     private List<Distrito> distritos;
 
 }

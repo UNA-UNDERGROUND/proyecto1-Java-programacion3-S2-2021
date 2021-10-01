@@ -14,10 +14,9 @@ import com.una.proyecto1.model.util.xml.IntegerAdapter;
 
 public class Distrito {
 
-    public Distrito(String nombre, Integer id) {
+    public Distrito(Integer id, String nombre) {
         this.nombre = nombre;
         this.id = id;
-
     }
 
     public Distrito() {
@@ -45,7 +44,6 @@ public class Distrito {
     @XmlID
     @XmlAttribute
     @XmlJavaTypeAdapter(IntegerAdapter.class)
-    private String nombre;
     private Integer id;
-
+    private String nombre;
 }

@@ -15,7 +15,7 @@ import com.una.proyecto1.model.util.xml.IntegerAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Provincia {
 
-    public Provincia(String nombre, Integer id, List<Canton> cantones) {
+    public Provincia(Integer id, String nombre, List<Canton> cantones) {
         this.nombre = nombre;
         this.id = id;
         this.cantones = cantones;
@@ -49,7 +49,7 @@ public class Provincia {
     @XmlID
     @XmlAttribute
     @XmlJavaTypeAdapter(IntegerAdapter.class)
-    private String nombre;
     private Integer id;
+    private String nombre;
     private List<Canton> cantones;
 }
