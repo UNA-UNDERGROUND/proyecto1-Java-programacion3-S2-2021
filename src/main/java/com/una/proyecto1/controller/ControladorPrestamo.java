@@ -27,7 +27,6 @@ public class ControladorPrestamo {
         if (provinciaListener != null) {
             provinciaListener.notificar();
         }
-
     }
 
     public Mapa getMapa() {
@@ -42,17 +41,14 @@ public class ControladorPrestamo {
 
     public boolean agregarCliente(Integer id, String nombre, String canton, String provincia, String distrito) {
         if (recuperarCliente(id) != null) {
-
             clientes.add(new Cliente(id, nombre, canton, provincia, distrito));
             return true;
         }
-
         return false;
 
     }
 
     public Cliente recuperarCliente(Integer id) {
-
         for (Cliente actual : clientes) {
             if (actual.getId() == id) {
                 return actual;
@@ -64,7 +60,11 @@ public class ControladorPrestamo {
     private Mapa mapa;
     private int provinciaSelec = 0;
 
+    // -- implementacion patrones --
+
     private Listener provinciaListener = null;
+
+    private static ControladorPrestamo instancia = null;
 
     public static ControladorPrestamo getInstancia() {
         if (instancia == null) {
@@ -72,7 +72,4 @@ public class ControladorPrestamo {
         }
         return instancia;
     }
-
-    private static ControladorPrestamo instancia = null;
-
 }
