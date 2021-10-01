@@ -12,7 +12,10 @@ public class ControladorPrestamo {
 
     private ControladorPrestamo() {
         mapa = new Mapa();
+
     }
+
+    // -- Mapa --
 
     public String getProvinciaActual() {
         return CodigoProvincia.values()[provinciaSelec].getNombre();
@@ -33,11 +36,7 @@ public class ControladorPrestamo {
         return mapa;
     }
 
-    public void setProvinciaListener(Listener l) {
-        this.provinciaListener = l;
-    }
-
-    List<Cliente> clientes = new ArrayList<>();
+    // -- Cliente --
 
     public boolean agregarCliente(Integer id, String nombre, String canton, String provincia, String distrito) {
         if (recuperarCliente(id) != null) {
@@ -59,9 +58,13 @@ public class ControladorPrestamo {
 
     private Mapa mapa;
     private int provinciaSelec = 0;
+    List<Cliente> clientes = new ArrayList<>();
 
     // -- implementacion patrones --
 
+    public void setProvinciaListener(Listener l) {
+        this.provinciaListener = l;
+    }
     private Listener provinciaListener = null;
 
     private static ControladorPrestamo instancia = null;
