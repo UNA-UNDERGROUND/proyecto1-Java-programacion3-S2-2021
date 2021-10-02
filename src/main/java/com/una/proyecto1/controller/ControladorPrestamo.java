@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.una.proyecto1.model.logica.Cliente;
+import com.una.proyecto1.model.logica.ubicacion.Canton;
+import com.una.proyecto1.model.logica.ubicacion.Distrito;
 import com.una.proyecto1.model.logica.ubicacion.Provincia;
 import com.una.proyecto1.model.mapa.CodigoProvincia;
 import com.una.proyecto1.model.mapa.Mapa;
@@ -16,6 +18,29 @@ public class ControladorPrestamo {
         mapa = new Mapa();
         XMLparser.unmarshall(provincias, "data/provincias.xml", true);
     }
+
+    // -- Informacion Provincias --
+
+    public List<Provincia> getProvincias(){
+        return provincias;
+    }
+
+    public List<Canton> getCantones(Integer idProvincia){
+        try {
+            return getProvincias().get(idProvincia).getCantones();    
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Distrito> getDistritos(Integer idProvincia, Integer idCanton){
+        try {
+            return getCantones(idProvincia).get(idCanton).getDistritos();    
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+
 
     // -- Mapa --
 
