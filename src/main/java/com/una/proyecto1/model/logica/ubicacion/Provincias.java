@@ -22,7 +22,7 @@ public class Provincias {
 
     public List<Canton> getCantones(Integer idProvincia) {
         try {
-            return getProvincias().get(idProvincia).getCantones();
+            return getProvincias().get(idProvincia - 1).getCantones();
         } catch (Exception e) {
             return new ArrayList<>();
         }
@@ -30,7 +30,7 @@ public class Provincias {
 
     public List<Distrito> getDistritos(Integer idProvincia, Integer idCanton) {
         try {
-            return getCantones(idProvincia).get(idCanton).getDistritos();
+            return getCantones(idProvincia).get(idCanton - 1).getDistritos();
         } catch (Exception e) {
             return new ArrayList<>();
         }

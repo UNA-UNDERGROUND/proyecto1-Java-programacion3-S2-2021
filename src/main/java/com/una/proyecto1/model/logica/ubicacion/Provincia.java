@@ -6,6 +6,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -20,7 +22,6 @@ public class Provincia {
         this.nombre = nombre;
         this.id = id;
         this.cantones = cantones;
-
     }
 
     public Provincia(){
@@ -56,5 +57,7 @@ public class Provincia {
     @XmlJavaTypeAdapter(IntegerAdapter.class)
     private Integer id;
     private String nombre;
+    @XmlElement(name = "canton")
+    @XmlElementWrapper(name = "cantones")
     private List<Canton> cantones;
 }
