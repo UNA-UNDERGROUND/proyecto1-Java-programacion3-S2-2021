@@ -271,7 +271,9 @@ public class RegistroClientes extends javax.swing.JFrame implements Listener {
             distrito = comboDistrito.getSelectedItem().toString();
 
             exitoso = ControladorPrestamo.getInstancia().agregarCliente(cedula, nombre, provincia, canton, distrito);
-
+            if(!exitoso){
+                mensaje= "Ya existe el cliente"; 
+            }
         } catch (NumberFormatException ex) {
             exitoso = false;
             mensaje = "El ID debe ser un numero valido";

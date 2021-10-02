@@ -58,7 +58,7 @@ public class ControladorPrestamo {
     // -- Cliente --
 
     public boolean agregarCliente(Integer id, String nombre, String canton, String provincia, String distrito) {
-        if (recuperarCliente(id) != null) {
+        if (recuperarCliente(id) == null) {
             clientes.add(new Cliente(id, nombre, canton, provincia, distrito));
             return true;
         }
@@ -68,7 +68,7 @@ public class ControladorPrestamo {
 
     public Cliente recuperarCliente(Integer id) {
         for (Cliente actual : clientes) {
-            if (actual.getId() == id) {
+            if (actual.getId().equals(id)) {
                 return actual;
             }
         }
