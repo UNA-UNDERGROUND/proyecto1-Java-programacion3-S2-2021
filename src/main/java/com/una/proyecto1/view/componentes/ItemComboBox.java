@@ -1,7 +1,7 @@
 package com.una.proyecto1.view.componentes;
 
 public class ItemComboBox<T> {
-    ItemComboBox(T objeto) {
+    public ItemComboBox(T objeto) {
         this.objeto = objeto;
     }
 
