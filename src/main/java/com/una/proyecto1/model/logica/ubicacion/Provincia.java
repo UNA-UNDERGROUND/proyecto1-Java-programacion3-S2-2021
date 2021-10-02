@@ -1,5 +1,6 @@
 package com.una.proyecto1.model.logica.ubicacion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -20,6 +21,10 @@ public class Provincia {
         this.id = id;
         this.cantones = cantones;
 
+    }
+
+    public Provincia(){
+        this(-1, "", new ArrayList<>());
     }
 
     public String getNombre() {

@@ -26,7 +26,6 @@ public class Canton {
         id = -1;
         nombre = "";
         distritos = new ArrayList<Distrito>();
-
     }
 
     public String getNombre() {

@@ -22,19 +22,22 @@ public class XMLparser {
         }
     }
 
-    public static Object unmarshall(Object ref, String rutaArchivo, Boolean interno) {
+    @SuppressWarnings("unchecked")
+    public static <T> T unmarshall(T ref, String rutaArchivo, Boolean interno) {
         try {
             JAXBContext context = JAXBContext.newInstance(ref.getClass());
             Unmarshaller unmarshallerObj = context.createUnmarshaller();
-            if(interno){
-                return unmarshallerObj.unmarshal(ClassLoader.getSystemResource(rutaArchivo));
+            BufferedInputStream stream;
+            if (interno) {
+                stream = new BufferedInputStream(ClassLoader.getSystemResource(rutaArchivo).openStream());
+            } else {
+                stream = new BufferedInputStream(new FileInputStream(rutaArchivo));
             }
-            else{
-                return unmarshallerObj.unmarshal(new BufferedInputStream(new FileInputStream(rutaArchivo)));
-            }
+            return (T) unmarshallerObj.unmarshal(stream);
         } catch (FileNotFoundException ex) {
             System.err.println("[WARN] Archivo no encontrado, omitiendo.");
         } catch (Exception ex) {
+            ex.printStackTrace();
             System.err.println("[WARN] Archivo incorrecto, omitiendo.");
         }
         return ref;

@@ -22,7 +22,6 @@ public class Distrito {
     public Distrito() {
         id = -1;
         nombre = "";
-
     }
 
     public String getNombre() {
