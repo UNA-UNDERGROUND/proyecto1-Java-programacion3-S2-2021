@@ -51,6 +51,11 @@ public final class Mapa extends javax.swing.JPanel {
 				public void mousePressed(MouseEvent me) {
 					onMouseClick(me);
 				}
+
+				@Override
+				public void mouseExited(MouseEvent me) {
+					onMouseExit(me);
+				}
 			}
 
 			);
@@ -66,10 +71,14 @@ public final class Mapa extends javax.swing.JPanel {
 	}
 
 	void onMouseMoved(MouseEvent me) {
-		if (ControladorPrestamo.getInstancia().getCodigoProvincia() == 0) {
-			Integer numProvincia = ControladorPrestamo.getInstancia().getMapa()
-					.colisiona(new Punto(me.getX(), me.getY()));
-			actualizarMapa(numProvincia);
+		Integer provinciaResaltada = ControladorPrestamo.getInstancia().getMapa()
+				.colisiona(new Punto(me.getX(), me.getY()));
+		Integer provinciaSeleccionada = ControladorPrestamo.getInstancia().getCodigoProvincia();
+
+		if (provinciaSeleccionada == 0 || provinciaResaltada != 0) {
+			actualizarMapa(provinciaResaltada);
+		} else {
+			actualizarMapa(provinciaSeleccionada);
 		}
 	}
 
@@ -79,7 +88,10 @@ public final class Mapa extends javax.swing.JPanel {
 			ControladorPrestamo.getInstancia().setCodigoProvincia(numProvincia);
 			actualizarMapa(numProvincia);
 		}
+	}
 
+	void onMouseExit(MouseEvent me) {
+		actualizarMapa(ControladorPrestamo.getInstancia().getCodigoProvincia());
 	}
 
 	JLabel mapa;
