@@ -24,6 +24,7 @@ public class Provincias {
         try {
             return getProvincias().get(idProvincia - 1).getCantones();
         } catch (Exception e) {
+            System.err.println("no se pudo recuperar los cantones");
             return new ArrayList<>();
         }
     }
@@ -32,6 +33,7 @@ public class Provincias {
         try {
             return getCantones(idProvincia).get(idCanton - 1).getDistritos();
         } catch (Exception e) {
+            System.err.println("no se pudo recuperar los distritos");
             return new ArrayList<>();
         }
     }

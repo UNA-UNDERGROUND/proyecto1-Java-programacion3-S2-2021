@@ -64,8 +64,8 @@ public class Canton {
     @XmlJavaTypeAdapter(IntegerAdapter.class)
     private Integer id;
     private String nombre;
-    @XmlElement
-    @XmlElementWrapper
+    @XmlElement(name = "distrito")
+    @XmlElementWrapper(name = "distritos")
     private List<Distrito> distritos;
 
 }

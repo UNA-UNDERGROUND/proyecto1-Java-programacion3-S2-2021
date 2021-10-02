@@ -40,6 +40,11 @@ public class Distrito {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return getNombre();
+    }
+
     @XmlID
     @XmlAttribute
     @XmlJavaTypeAdapter(IntegerAdapter.class)
