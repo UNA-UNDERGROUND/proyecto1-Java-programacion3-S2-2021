@@ -85,13 +85,14 @@ public class ControladorPrestamo {
 
     }
 
-    public Prestamo recuperarPrestamo(Integer idCliente) {
+    public List<Prestamo> recuperarPrestamos(Integer idCliente) {
+        List<Prestamo> resultado = new ArrayList<>();
         for (Prestamo actual : prestamos) {
             if (actual.getIdCliente().equals(idCliente)) {
-                return actual;
+                resultado.add(actual);
             }
         }
-        return null;
+        return resultado;
     }
 
     private Mapa mapa;
