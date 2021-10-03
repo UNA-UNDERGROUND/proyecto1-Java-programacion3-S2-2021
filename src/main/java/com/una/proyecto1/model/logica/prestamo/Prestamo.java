@@ -5,16 +5,25 @@ import java.util.List;
 
 public class Prestamo {
 
-	List<Mensualidad> mensualidades = new ArrayList<>();
+	private List<Mensualidad> mensualidades = new ArrayList<>();
+	private Integer idCliente;
+	private double monto;
+	private int plazo;
+	private double tasa;
 
-	double monto;
-	int plazo;
-	double tasa;
-
-	public Prestamo(double monto, int plazo, double tasa) {
+	public Prestamo(Integer idCliente, double monto, int plazo, double tasa) {
+		this.idCliente = idCliente;
 		this.monto = monto;
 		this.plazo = plazo;
 		this.tasa = tasa;
+	}
+
+	public Integer getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public double getMonto() {
@@ -57,12 +66,8 @@ public class Prestamo {
 
 	@Override
 	public String toString() {
-		String prestamo = String.format(
-			"Monto: %.0f  Tasa: %.0f  Plazo: %d  Cuota: %.0f",
-			getMonto(),
-			getTasa() * 100,
-			getPlazo(), 
-			getCuota());
+		String prestamo = String.format("Monto: %.0f  Tasa: %.0f  Plazo: %d  Cuota: %.0f", getMonto(), getTasa() * 100,
+				getPlazo(), getCuota());
 		return prestamo;
 	}
 

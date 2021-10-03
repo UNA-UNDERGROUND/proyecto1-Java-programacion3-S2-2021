@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.una.proyecto1.model.logica.Cliente;
+import com.una.proyecto1.model.logica.prestamo.Prestamo;
 import com.una.proyecto1.model.logica.ubicacion.Canton;
 import com.una.proyecto1.model.logica.ubicacion.Distrito;
 import com.una.proyecto1.model.logica.ubicacion.Provincia;
@@ -75,10 +76,20 @@ public class ControladorPrestamo {
         return null;
     }
 
+    public boolean agregarPrestamo(Integer id, double monto, int plazo, double tasa) {
+        if (recuperarCliente(id) != null) {
+            prestamos.add(new Prestamo(id, monto, plazo, tasa));
+            return true;
+        }
+        return false;
+
+    }
+
     private Mapa mapa;
     private int provinciaSelec = 0;
     List<Cliente> clientes = new ArrayList<>();
     Provincias provincias;
+    List<Prestamo> prestamos = new ArrayList<>();
 
     // -- implementacion patrones --
 
