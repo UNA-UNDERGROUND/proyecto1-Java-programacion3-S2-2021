@@ -1,20 +1,23 @@
 package com.una.proyecto1.model.logica;
 
+import com.una.proyecto1.model.logica.ubicacion.Canton;
+import com.una.proyecto1.model.logica.ubicacion.Distrito;
+
 public class Cliente {
 
-    public Cliente(Integer id, String nombre, String provincia, String canton, String distrito ) {
+    public Cliente(Integer id, String nombre, String provincia, Canton canton, Distrito distrito) {
         this.id = id;
         this.nombre = nombre;
         this.provincia = provincia;
         this.canton = canton;
-        this.distrito= distrito; 
+        this.distrito = distrito;
     }
 
-    public String getDistrito() {
+    public Distrito getDistrito() {
         return distrito;
     }
 
-    public void setDistrito(String distrito) {
+    public void setDistrito(Distrito distrito) {
         this.distrito = distrito;
     }
 
@@ -34,11 +37,11 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getCanton() {
+    public Canton getCanton() {
         return canton;
     }
 
-    public void setCanton(String canton) {
+    public void setCanton(Canton canton) {
         this.canton = canton;
     }
 
@@ -53,7 +56,7 @@ public class Cliente {
     private Integer id;
     private String nombre;
     private String provincia;
-    private String canton;
-    private String distrito; 
+    private Canton canton;
+    private Distrito distrito;
 
 }

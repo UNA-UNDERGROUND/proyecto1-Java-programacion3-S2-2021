@@ -14,5 +14,19 @@ public class ItemComboBox<T> {
         return objeto.toString();
     }
 
+    @Override
+    @SuppressWarnings("unchecked")
+    public boolean equals(Object other) {
+        if (other != null) {
+            try {
+                ItemComboBox<T> obj = this.getClass().cast(other);
+                return objeto.equals(obj.objeto);
+            } catch (ClassCastException e) {
+                return objeto.equals(other);
+            }
+        }
+        return false;
+    }
+
     private T objeto;
 }

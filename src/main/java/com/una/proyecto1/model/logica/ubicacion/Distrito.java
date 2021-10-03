@@ -45,6 +45,19 @@ public class Distrito {
         return getNombre();
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other != null) {
+            try {
+                Distrito obj = Distrito.class.cast(other);
+                return id.equals(obj.id) && nombre.equals(obj.nombre);
+            } catch (ClassCastException e) {
+                return nombre.equals(other);
+            }
+        }
+        return false;
+    }
+
     @XmlID
     @XmlAttribute
     @XmlJavaTypeAdapter(IntegerAdapter.class)
