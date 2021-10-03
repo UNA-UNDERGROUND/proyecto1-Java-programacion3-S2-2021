@@ -8,11 +8,11 @@ package com.una.proyecto1.view;
 import java.util.List;
 
 import com.una.proyecto1.controller.ControladorPrestamo;
+import com.una.proyecto1.model.logica.prestamo.Mensualidad;
 import com.una.proyecto1.model.logica.prestamo.Prestamo;
 import com.una.proyecto1.view.componentes.MensualidadTableModel;
 
 import static javax.swing.JOptionPane.showMessageDialog;
-
 
 public class PrestamoClientes extends javax.swing.JFrame {
     private int cedula = 0;
@@ -48,8 +48,12 @@ public class PrestamoClientes extends javax.swing.JFrame {
         }
     }
 
-    void recargarMensualidades(){
-
+    void recargarMensualidades() {
+        Integer indice = cmbPrestamo.getSelectedIndex();
+        if (indice != 0) {
+            List<Mensualidad> mensualidades = ControladorPrestamo.getInstancia().recuperarMensualidades(cedula, indice - 1);
+            tablaMensualidad.setModel(new MensualidadTableModel(mensualidades));
+        }
     }
 
     /**
@@ -192,7 +196,6 @@ public class PrestamoClientes extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSeleccionarActionPerformed
-        // TODO add your handling code here:
         Integer indice = cmbPrestamo.getSelectedIndex();
         if (indice != 0) {
             List<Prestamo> prestamos = ControladorPrestamo.getInstancia().recuperarPrestamos(cedula);
@@ -204,7 +207,17 @@ public class PrestamoClientes extends javax.swing.JFrame {
     }// GEN-LAST:event_btnSeleccionarActionPerformed
 
     private void btnAgregarMensualidadActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarMensualidadActionPerformed
-        // TODO add your handling code here:
+        try {
+            Integer indice = cmbPrestamo.getSelectedIndex();
+            Double saldo = Double.valueOf(txtMensualidad.getText());
+            if (indice != 0 && ControladorPrestamo.getInstancia().agregarMensualidad(cedula, indice - 1, saldo)) {
+                recargarMensualidades();
+            } else {
+                showMessageDialog(null, "Ingrese una mensualidad valida");
+            }
+        } catch (Exception e) {
+            showMessageDialog(null, "Ingrese un valor numerico correcto");
+        }
     }// GEN-LAST:event_btnAgregarMensualidadActionPerformed
 
     private void btnNuevoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnNuevoPrestamoActionPerformed

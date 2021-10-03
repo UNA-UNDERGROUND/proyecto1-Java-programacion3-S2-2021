@@ -76,6 +76,10 @@ public class MensualidadTableModel extends AbstractTableModel {
 		// ningun campo se puede editar
 	}
 
+	public List<Mensualidad> getMensualidades() {
+		return mensualidades;
+	}
+
 	private List<Mensualidad> mensualidades;
 	private LinkedList<TableModelListener> suscriptores = new LinkedList<>();
 	private final static String[] COLUMNAS = { "Mensualidad", "Saldo", "Interés", "Amortizacion" };

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.una.proyecto1.model.logica.Cliente;
+import com.una.proyecto1.model.logica.prestamo.Mensualidad;
 import com.una.proyecto1.model.logica.prestamo.Prestamo;
 import com.una.proyecto1.model.logica.ubicacion.Canton;
 import com.una.proyecto1.model.logica.ubicacion.Distrito;
@@ -93,6 +94,31 @@ public class ControladorPrestamo {
             }
         }
         return resultado;
+    }
+
+    public Prestamo recuperarPrestamo(Integer idCliente, int numero) {
+        List<Prestamo> resultado = recuperarPrestamos(idCliente);
+        if (resultado.size() > numero) {
+            return resultado.get(numero);
+        }
+        return null;
+    }
+
+    public boolean agregarMensualidad(Integer idCliente, int numero, double saldo) {
+        Prestamo prestamo = recuperarPrestamo(idCliente, numero);
+        if (prestamo != null) {
+            prestamo.agregarMensualidad(saldo);
+            return true;
+        }
+        return false;
+    }
+
+    public List<Mensualidad> recuperarMensualidades(Integer idCliente, int numero) {
+        List<Prestamo> resultado = recuperarPrestamos(idCliente);
+        if (resultado.size() > numero) {
+            return resultado.get(numero).getMensualidades();
+        }
+        return new ArrayList<>();
     }
 
     private Mapa mapa;

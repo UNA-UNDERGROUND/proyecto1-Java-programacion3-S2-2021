@@ -1,18 +1,30 @@
 package com.una.proyecto1.model.logica.prestamo;
 
 public class Mensualidad {
-
+  
+	private Integer idCliente; 
 	private final int numero;
 	private final double saldo;
 	private final double tasa;
 	private final double cuota;
 
-	public Mensualidad(int numero, double saldo, double tasa, double cuota) {
+	public Mensualidad(Integer idCliente, int numero, double saldo, double tasa, double cuota) {
+		this.idCliente = idCliente;
 		this.numero = numero;
 		this.saldo = saldo;
 		this.tasa = tasa;
 		this.cuota = cuota;
 	}
+
+	public Integer getIdCliente() {
+		return idCliente;
+	}
+
+	
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
+	}
+
 
 	/**
 	 * @return the numero

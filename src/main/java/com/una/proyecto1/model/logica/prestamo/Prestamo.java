@@ -61,7 +61,7 @@ public class Prestamo {
 	}
 
 	public void agregarMensualidad(double saldo) {
-		agregarMensualidad(new Mensualidad(mensualidades.size() + 1, saldo, tasa, getCuota()));
+		agregarMensualidad(new Mensualidad(idCliente, mensualidades.size() + 1, saldo, tasa, getCuota()));
 	}
 
 	@Override
