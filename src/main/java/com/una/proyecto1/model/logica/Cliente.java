@@ -2,11 +2,11 @@ package com.una.proyecto1.model.logica;
 
 public class Cliente {
 
-    public Cliente(Integer id, String nombre, String canton, String provincia, String distrito ) {
+    public Cliente(Integer id, String nombre, String provincia, String canton, String distrito ) {
         this.id = id;
         this.nombre = nombre;
-        this.canton = canton;
         this.provincia = provincia;
+        this.canton = canton;
         this.distrito= distrito; 
     }
 
@@ -52,8 +52,8 @@ public class Cliente {
 
     private Integer id;
     private String nombre;
-    private String canton;
     private String provincia;
+    private String canton;
     private String distrito; 
 
 }
