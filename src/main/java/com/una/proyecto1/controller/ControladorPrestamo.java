@@ -85,6 +85,15 @@ public class ControladorPrestamo {
 
     }
 
+    public Prestamo recuperarPrestamo(Integer idCliente) {
+        for (Prestamo actual : prestamos) {
+            if (actual.getIdCliente().equals(idCliente)) {
+                return actual;
+            }
+        }
+        return null;
+    }
+
     private Mapa mapa;
     private int provinciaSelec = 0;
     List<Cliente> clientes = new ArrayList<>();
