@@ -40,6 +40,19 @@ public class Prestamo {
 	}
 
 	public double getCuota() {
+		Double cuotaInicial = (monto * tasa) / plazo;
+		for (Mensualidad mensualidad : mensualidades) {
+			if (mensualidad.getCuota() > cuotaInicial) {
+				// hay que recalcular la cuota
+				Double sumaCuotas = 0.0;
+				for (Mensualidad mensualidad2 : mensualidades) {
+					sumaCuotas += mensualidad2.getCuota();
+				}
+				Double remanente = (monto * tasa) - sumaCuotas;
+				Integer plazoRestante = plazo - mensualidades.size();
+				return remanente / (1 - Math.pow(1 + tasa, -plazoRestante));
+			}
+		}
 		return (monto * tasa) / (1 - Math.pow(1 + tasa, -plazo));
 	}
 

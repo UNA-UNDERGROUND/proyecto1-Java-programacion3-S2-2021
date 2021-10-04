@@ -111,6 +111,7 @@ public class ControladorPrestamo {
 
     public boolean agregarMensualidad(Integer idCliente, int numero, double saldo, Date fecha) {
         Prestamo prestamo = recuperarPrestamo(idCliente, numero);
+        // nota: no se toman en cuenta cuotas con menor saldo al establecido
         if (prestamo != null) {
             prestamo.agregarMensualidad(saldo, fecha);
             return true;
