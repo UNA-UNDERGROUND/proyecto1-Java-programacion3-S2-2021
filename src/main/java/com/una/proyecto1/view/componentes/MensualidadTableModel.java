@@ -1,5 +1,6 @@
 package com.una.proyecto1.view.componentes;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,6 +57,8 @@ public class MensualidadTableModel extends AbstractTableModel {
 				return String.format("%7.0f", m.getMontoInteres());
 			case 3:
 				return String.format("%8.0f", m.getMontoAmortizacion());
+			case 4:
+				return new SimpleDateFormat("dd/MM/yyyy").format(m.getFecha());
 			default:
 				return null;
 		}
@@ -82,5 +85,5 @@ public class MensualidadTableModel extends AbstractTableModel {
 
 	private List<Mensualidad> mensualidades;
 	private LinkedList<TableModelListener> suscriptores = new LinkedList<>();
-	private final static String[] COLUMNAS = { "Mensualidad", "Saldo", "Interés", "Amortizacion" };
+	private final static String[] COLUMNAS = { "Mensualidad", "Saldo", "Interés", "Amortizacion", "Fecha" };
 }

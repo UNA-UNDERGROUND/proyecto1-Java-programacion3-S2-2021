@@ -1,6 +1,7 @@
 package com.una.proyecto1.model.logica.prestamo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Prestamo {
@@ -60,8 +61,9 @@ public class Prestamo {
 		mensualidades.add(mensualidad);
 	}
 
-	public void agregarMensualidad(double saldo) {
-		agregarMensualidad(new Mensualidad(idCliente, mensualidades.size() + 1, saldo, tasa, getCuota()));
+	public void agregarMensualidad(double saldo, Date fecha) {
+		Mensualidad mensualidad = new Mensualidad(idCliente, mensualidades.size() + 1, saldo, tasa, getCuota(), fecha);
+		agregarMensualidad(mensualidad);
 	}
 
 	@Override

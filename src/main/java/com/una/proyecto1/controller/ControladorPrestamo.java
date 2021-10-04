@@ -1,6 +1,7 @@
 package com.una.proyecto1.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.una.proyecto1.model.logica.Cliente;
@@ -105,9 +106,13 @@ public class ControladorPrestamo {
     }
 
     public boolean agregarMensualidad(Integer idCliente, int numero, double saldo) {
+        return agregarMensualidad(idCliente, numero, saldo, new Date());
+    }
+
+    public boolean agregarMensualidad(Integer idCliente, int numero, double saldo, Date fecha) {
         Prestamo prestamo = recuperarPrestamo(idCliente, numero);
         if (prestamo != null) {
-            prestamo.agregarMensualidad(saldo);
+            prestamo.agregarMensualidad(saldo, fecha);
             return true;
         }
         return false;
