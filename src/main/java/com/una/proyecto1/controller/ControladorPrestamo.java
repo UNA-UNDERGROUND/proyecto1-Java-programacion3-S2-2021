@@ -1,5 +1,6 @@
 package com.una.proyecto1.controller;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,7 +9,9 @@ import java.util.List;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Cell;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
 import com.una.proyecto1.model.logica.cliente.Cliente;
 import com.una.proyecto1.model.logica.prestamo.Mensualidad;
 import com.una.proyecto1.model.logica.prestamo.Prestamo;
@@ -132,19 +135,45 @@ public class ControladorPrestamo {
         return new ArrayList<>();
     }
 
-    public void generarReporteClientes(String ubicacion) {
-        try{
-            FileOutputStream fos = new FileOutputStream(ubicacion);
-            PdfWriter writer = new PdfWriter(fos);
-            PdfDocument pdf = new PdfDocument(writer);
+    private PdfDocument generarDocumentoPDF(String ubicacion) throws FileNotFoundException {
+        FileOutputStream fos = new FileOutputStream(ubicacion);
+        PdfWriter writer = new PdfWriter(fos);
+        return new PdfDocument(writer);
+    }
+
+    public boolean generarReporteClientes(String ubicacion) {
+        try {
+            PdfDocument pdf = generarDocumentoPDF(ubicacion);
 
             Document document = new Document(pdf);
 
-            document.add(new Paragraph("Listado de clientes"));
+            // Id, Nombre, Provincia, canton, distrito
+            float[] longitudColumnas = { 150F, 150f, 150F, 150F, 150F };
+            Table tablaClientes = new Table(longitudColumnas);
 
+            // titulo
+            tablaClientes.addCell(new Cell().add(new Paragraph("ID")));
+            tablaClientes.addCell(new Cell().add(new Paragraph("Nombre")));
+            tablaClientes.addCell(new Cell().add(new Paragraph("Provincia")));
+            tablaClientes.addCell(new Cell().add(new Paragraph("Cantón")));
+            tablaClientes.addCell(new Cell().add(new Paragraph("Distrito")));
+
+            // datos de la tabla
+            for (Cliente cliente : clientes) {
+                tablaClientes.addCell(new Cell().add(new Paragraph(cliente.getId().toString())));
+                tablaClientes.addCell(new Cell().add(new Paragraph(cliente.getNombre())));
+                tablaClientes.addCell(new Cell().add(new Paragraph(cliente.getProvincia())));
+                tablaClientes.addCell(new Cell().add(new Paragraph(cliente.getCanton().getNombre())));
+                tablaClientes.addCell(new Cell().add(new Paragraph(cliente.getDistrito().getNombre())));
+            }
+
+            document.add(new Paragraph("Listado de clientes"));
+            document.add(tablaClientes);
             document.close();
+            return true;
         } catch (Exception e) {
-            // TODO: handle exception
+            // TODO generar mensaje aca
+            return false;
         }
 
     }
