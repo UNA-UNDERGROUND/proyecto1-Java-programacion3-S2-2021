@@ -1,4 +1,4 @@
-package com.una.proyecto1.model.logica;
+package com.una.proyecto1.model.logica.cliente;
 
 import com.una.proyecto1.model.logica.ubicacion.Canton;
 import com.una.proyecto1.model.logica.ubicacion.Distrito;

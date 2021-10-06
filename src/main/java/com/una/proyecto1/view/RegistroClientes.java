@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.una.proyecto1.controller.ControladorPrestamo;
-import com.una.proyecto1.model.logica.Cliente;
+import com.una.proyecto1.model.logica.cliente.Cliente;
 import com.una.proyecto1.model.logica.ubicacion.Canton;
 import com.una.proyecto1.model.logica.ubicacion.Distrito;
 import com.una.proyecto1.model.mapa.CodigoProvincia;

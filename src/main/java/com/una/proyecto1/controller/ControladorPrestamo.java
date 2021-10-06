@@ -1,10 +1,15 @@
 package com.una.proyecto1.controller;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.una.proyecto1.model.logica.Cliente;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.una.proyecto1.model.logica.cliente.Cliente;
 import com.una.proyecto1.model.logica.prestamo.Mensualidad;
 import com.una.proyecto1.model.logica.prestamo.Prestamo;
 import com.una.proyecto1.model.logica.ubicacion.Canton;
@@ -125,6 +130,23 @@ public class ControladorPrestamo {
             return resultado.get(numero).getMensualidades();
         }
         return new ArrayList<>();
+    }
+
+    public void generarReporteClientes(String ubicacion) {
+        try{
+            FileOutputStream fos = new FileOutputStream(ubicacion);
+            PdfWriter writer = new PdfWriter(fos);
+            PdfDocument pdf = new PdfDocument(writer);
+
+            Document document = new Document(pdf);
+
+            document.add(new Paragraph("Listado de clientes"));
+
+            document.close();
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
     }
 
     private Mapa mapa;
