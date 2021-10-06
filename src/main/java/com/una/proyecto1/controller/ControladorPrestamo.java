@@ -2,6 +2,7 @@ package com.una.proyecto1.controller;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -179,46 +180,87 @@ public class ControladorPrestamo {
     }
 
     public boolean generarReportePrestamos(String ubicacion, Integer idCliente) {
-        // TODO: por implementar
-    try {
-        PdfDocument pdf = generarDocumentoPDF(ubicacion);
 
-        Document document = new Document (pdf); 
-        
-        float[] longitudColumnas = { 150F, 150f, 150F, 150F };
-        Table tablaPrestamos = new Table(longitudColumnas); 
+        try {
+            PdfDocument pdf = generarDocumentoPDF(ubicacion);
 
-        //Titulo 
+            Document document = new Document(pdf);
 
-        tablaPrestamos.addCell(new Cell().add(new Paragraph("ID")));
-        tablaPrestamos.addCell(new Cell().add(new Paragraph("Monto")));
-        tablaPrestamos.addCell(new Cell().add(new Paragraph("Plazo")));
-        tablaPrestamos.addCell(new Cell().add(new Paragraph("Tasa")));
-     
+            float[] longitudColumnas = { 150F, 150f, 150F, 150F };
+            Table tablaPrestamos = new Table(longitudColumnas);
 
-        // datos de tabla 
-        for (Prestamo prestamo : prestamos) {
-            tablaPrestamos.addCell(new Cell().add(new Paragraph(prestamo.getIdCliente().toString())));
-            tablaPrestamos.addCell(new Cell().add(new Paragraph(Double.valueOf(prestamo.getMonto()).toString())));
-            tablaPrestamos.addCell(new Cell().add(new Paragraph(Integer.valueOf(prestamo.getPlazo()).toString())));
-            tablaPrestamos.addCell(new Cell().add(new Paragraph(Double.valueOf(prestamo.getTasa()).toString())));
-           
+            // Titulo
+
+            tablaPrestamos.addCell(new Cell().add(new Paragraph("ID")));
+            tablaPrestamos.addCell(new Cell().add(new Paragraph("Monto")));
+            tablaPrestamos.addCell(new Cell().add(new Paragraph("Plazo")));
+            tablaPrestamos.addCell(new Cell().add(new Paragraph("Tasa")));
+
+            // datos de tabla
+            for (Prestamo prestamo : prestamos) {
+                tablaPrestamos.addCell(new Cell().add(new Paragraph(prestamo.getIdCliente().toString())));
+                tablaPrestamos.addCell(new Cell().add(new Paragraph(Double.valueOf(prestamo.getMonto()).toString())));
+                tablaPrestamos.addCell(new Cell().add(new Paragraph(Integer.valueOf(prestamo.getPlazo()).toString())));
+                tablaPrestamos.addCell(new Cell().add(new Paragraph(Double.valueOf(prestamo.getTasa()).toString())));
+
+            }
+
+            document.add(new Paragraph("Listado de clientes"));
+            document.add(tablaPrestamos);
+            document.close();
+            return true;
+        } catch (Exception e) {
+            // TODO generar mensaje aca
+            return false;
         }
-
-        document.add(new Paragraph("Listado de clientes"));
-        document.add(tablaPrestamos);
-        document.close();
-        return true;
-    } catch (Exception e) {
-        // TODO generar mensaje aca
-        return false;
-    }
 
     }
 
     public boolean generarReportePagos(String ubicacion, Integer idCliente, Integer numeroPago) {
         // TODO: por implementar
-        throw new UnsupportedOperationException();
+        Prestamo prestamo = recuperarPrestamo(idCliente, numeroPago);
+        if (prestamo != null) {
+            try {
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+
+                PdfDocument pdf = generarDocumentoPDF(ubicacion);
+
+                Document document = new Document(pdf);
+                // numero, saldo, tasa, cuota, fecha
+                float[] longitudColumnas = { 150F, 150f, 150F, 150F, 150F };
+                Table tablaPagos = new Table(longitudColumnas);
+
+                tablaPagos.addCell(new Cell().add(new Paragraph("Numero")));
+                tablaPagos.addCell(new Cell().add(new Paragraph("Saldo")));
+                tablaPagos.addCell(new Cell().add(new Paragraph("Tasa")));
+                tablaPagos.addCell(new Cell().add(new Paragraph("Cuota")));
+                tablaPagos.addCell(new Cell().add(new Paragraph("Fecha")));
+
+                for (Mensualidad mensualidad : prestamo.getMensualidades()) {
+                    tablaPagos.addCell(
+                            new Cell().add(new Paragraph(Integer.valueOf(mensualidad.getNumero()).toString())));
+                    tablaPagos
+                            .addCell(new Cell().add(new Paragraph(Double.valueOf(mensualidad.getSaldo()).toString())));
+                    tablaPagos
+                            .addCell(new Cell().add(new Paragraph(Double.valueOf(mensualidad.getTasa()).toString())));
+                    tablaPagos
+                            .addCell(new Cell().add(new Paragraph(Double.valueOf(mensualidad.getCuota()).toString())));
+                    tablaPagos.addCell(new Cell().add(new Paragraph(formatoFecha.format(mensualidad.getFecha()))));
+                }
+
+                document.add(new Paragraph("Listado de pagos del cliente :" + idCliente.toString()));
+                document.add(new Paragraph("Prestamo #"+ numeroPago.toString()));
+                document.add(tablaPagos);
+                document.close();
+                return true;
+
+            } catch (Exception e) {
+                // TODO: mostrar mensaje de advertencia
+                return false;
+            }
+
+        }
+        return false;
     }
 
     private Mapa mapa;
