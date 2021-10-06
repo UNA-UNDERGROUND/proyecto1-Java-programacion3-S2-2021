@@ -180,7 +180,40 @@ public class ControladorPrestamo {
 
     public boolean generarReportePrestamos(String ubicacion, Integer idCliente) {
         // TODO: por implementar
-        throw new UnsupportedOperationException();
+    try {
+        PdfDocument pdf = generarDocumentoPDF(ubicacion);
+
+        Document document = new Document (pdf); 
+        
+        float[] longitudColumnas = { 150F, 150f, 150F, 150F };
+        Table tablaPrestamos = new Table(longitudColumnas); 
+
+        //Titulo 
+
+        tablaPrestamos.addCell(new Cell().add(new Paragraph("ID")));
+        tablaPrestamos.addCell(new Cell().add(new Paragraph("Monto")));
+        tablaPrestamos.addCell(new Cell().add(new Paragraph("Plazo")));
+        tablaPrestamos.addCell(new Cell().add(new Paragraph("Tasa")));
+     
+
+        // datos de tabla 
+        for (Prestamo prestamo : prestamos) {
+            tablaPrestamos.addCell(new Cell().add(new Paragraph(prestamo.getIdCliente().toString())));
+            tablaPrestamos.addCell(new Cell().add(new Paragraph(Double.valueOf(prestamo.getMonto()).toString())));
+            tablaPrestamos.addCell(new Cell().add(new Paragraph(Integer.valueOf(prestamo.getPlazo()).toString())));
+            tablaPrestamos.addCell(new Cell().add(new Paragraph(Double.valueOf(prestamo.getTasa()).toString())));
+           
+        }
+
+        document.add(new Paragraph("Listado de clientes"));
+        document.add(tablaPrestamos);
+        document.close();
+        return true;
+    } catch (Exception e) {
+        // TODO generar mensaje aca
+        return false;
+    }
+
     }
 
     public boolean generarReportePagos(String ubicacion, Integer idCliente, Integer numeroPago) {

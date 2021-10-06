@@ -19,7 +19,7 @@ public class Prestamo {
 		this.tasa = tasa;
 	}
 
-	public Integer getIdCliente() {
+	public  Integer getIdCliente() {
 		return idCliente;
 	}
 
@@ -31,7 +31,7 @@ public class Prestamo {
 		return monto;
 	}
 
-	public int getPlazo() {
+	public  int getPlazo() {
 		return plazo;
 	}
 
