@@ -178,6 +178,16 @@ public class ControladorPrestamo {
 
     }
 
+    public boolean generarReportePrestamos(String ubicacion, Integer idCliente) {
+        // TODO: por implementar
+        throw new UnsupportedOperationException();
+    }
+
+    public boolean generarReportePagos(String ubicacion, Integer idCliente, Integer numeroPago) {
+        // TODO: por implementar
+        throw new UnsupportedOperationException();
+    }
+
     private Mapa mapa;
     private int provinciaSelec = 0;
     List<Cliente> clientes = new ArrayList<>();
