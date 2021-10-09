@@ -217,7 +217,6 @@ public class ControladorPrestamo {
     }
 
     public boolean generarReportePagos(String ubicacion, Integer idCliente, Integer numeroPago) {
-        // TODO: por implementar
         Prestamo prestamo = recuperarPrestamo(idCliente, numeroPago);
         if (prestamo != null) {
             try {

@@ -10,16 +10,17 @@ import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import com.una.proyecto1.controller.ControladorPrestamo;
-import com.una.proyecto1.model.logica.prestamo.Mensualidad;
 import com.una.proyecto1.model.logica.prestamo.Prestamo;
-import com.una.proyecto1.view.componentes.MensualidadTableModel;
+import com.una.proyecto1.view.componentes.PrestamoTableModel;
 
 import static javax.swing.JOptionPane.showMessageDialog;
 
 public class PrestamoClientes extends javax.swing.JFrame {
-    private int cedula = 0;
+    private int cedula;
 
     /**
      * Creates new form PrestamoClientes
@@ -35,11 +36,30 @@ public class PrestamoClientes extends javax.swing.JFrame {
     }
 
     void init() {
+        tablaPrestamos.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                cmbPrestamo.setSelectedIndex(tablaPrestamos.getSelectedRow() + 1);
+                seleccionar();
+            }
+        });
+
         if (ControladorPrestamo.getInstancia().recuperarCliente(cedula) == null) {
             throw new RuntimeException("El cliente no existe");
         }
         this.setTitle(String.format("Prestamos del cliente %d", cedula));
         recargarPrestamos();
+    }
+
+    void seleccionar() {
+        Integer indice = cmbPrestamo.getSelectedIndex();
+        if (indice != 0) {
+            List<Prestamo> prestamos = ControladorPrestamo.getInstancia().recuperarPrestamos(cedula);
+            Prestamo prestamo = prestamos.get(indice - 1);
+            txtMonto.setText(Double.valueOf(prestamo.getMonto()).toString());
+            txtPlazo.setText(Integer.valueOf(prestamo.getPlazo()).toString());
+            txtTasa.setText(Double.valueOf(prestamo.getTasa()).toString());
+        }
     }
 
     void recargarPrestamos() {
@@ -50,15 +70,8 @@ public class PrestamoClientes extends javax.swing.JFrame {
         for (Integer i = 0; i < prestamos.size(); i++) {
             cmbPrestamo.addItem("Prestamo #" + (i + 1));
         }
-    }
-
-    void recargarMensualidades() {
-        Integer indice = cmbPrestamo.getSelectedIndex();
-        if (indice != 0) {
-            List<Mensualidad> mensualidades = ControladorPrestamo.getInstancia().recuperarMensualidades(cedula,
-                    indice - 1);
-            tablaMensualidad.setModel(new MensualidadTableModel(mensualidades));
-        }
+        List<Prestamo> prestamos = ControladorPrestamo.getInstancia().recuperarPrestamos(cedula);
+        tablaPrestamos.setModel(new PrestamoTableModel(prestamos));
     }
 
     /**
@@ -70,33 +83,31 @@ public class PrestamoClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaMensualidad = new javax.swing.JTable();
         cmbPrestamo = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         btnSeleccionar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        txtMensualidad = new javax.swing.JFormattedTextField();
-        btnAgregarMensualidad = new javax.swing.JToggleButton();
         btnNuevoPrestamo = new javax.swing.JButton();
         txtMonto = new javax.swing.JTextField();
         txtPlazo = new javax.swing.JTextField();
         txtTasa = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaPrestamos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        itemPagos = new javax.swing.JMenuItem();
         menuItemReportePrestamos = new javax.swing.JMenuItem();
         menuItemReportePagos = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        tablaMensualidad.setModel(new MensualidadTableModel());
-        jScrollPane1.setViewportView(tablaMensualidad);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         cmbPrestamo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nuevo Prestamo" }));
 
@@ -115,18 +126,6 @@ public class PrestamoClientes extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Mensualidad:");
-
-        txtMensualidad.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(
-                new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-
-        btnAgregarMensualidad.setText("Agregar");
-        btnAgregarMensualidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarMensualidadActionPerformed(evt);
-            }
-        });
-
         btnNuevoPrestamo.setText("Nuevo ");
         btnNuevoPrestamo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,7 +133,18 @@ public class PrestamoClientes extends javax.swing.JFrame {
             }
         });
 
+        tablaPrestamos.setModel(new PrestamoTableModel());
+        jScrollPane1.setViewportView(tablaPrestamos);
+
         jMenu1.setText("Archivo");
+
+        itemPagos.setText("Agregar Pagos");
+        itemPagos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemPagosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(itemPagos);
 
         menuItemReportePrestamos.setText("Reporte prestamos");
         menuItemReportePrestamos.addActionListener(new java.awt.event.ActionListener() {
@@ -161,7 +171,6 @@ public class PrestamoClientes extends javax.swing.JFrame {
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(layout
                 .createSequentialGroup().addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel1).addComponent(jLabel4))
@@ -178,22 +187,12 @@ public class PrestamoClientes extends javax.swing.JFrame {
                                         .addComponent(txtTasa).addComponent(txtMonto,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(btnNuevoPrestamo, javax.swing.GroupLayout.DEFAULT_SIZE, 87,
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnSeleccionar, javax.swing.GroupLayout.DEFAULT_SIZE, 95,
                                                 Short.MAX_VALUE)
-                                        .addComponent(btnSeleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, 1,
-                                                Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
-                                layout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 273,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnAgregarMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE, 90,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(btnNuevoPrestamo, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap()));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup().addContainerGap()
@@ -212,23 +211,24 @@ public class PrestamoClientes extends javax.swing.JFrame {
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtTasa, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnAgregarMensualidad, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtMensualidad, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 23,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED).addComponent(jScrollPane1,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap()));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void itemPagosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_itemPagosActionPerformed
+        Integer indice = cmbPrestamo.getSelectedIndex();
+        if (indice != 0) {
+            new Pagos(cedula, indice - 1).setVisible(true);
+        } else {
+            showMessageDialog(this, "seleccione una mensualidad en la lista", "no se ha seleccionado una mensualidad",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+    }// GEN-LAST:event_itemPagosActionPerformed
+
     private void menuItemReportePrestamosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuItemReportePrestamosActionPerformed
-        // TODO add your handling code here:
         JFileChooser dialogo = new JFileChooser();
         if (dialogo.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File archivo = dialogo.getSelectedFile();
@@ -248,7 +248,6 @@ public class PrestamoClientes extends javax.swing.JFrame {
     }// GEN-LAST:event_menuItemReportePrestamosActionPerformed
 
     private void menuItemReportePagosActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_menuItemReportePagosActionPerformed
-        // TODO add your handling code here:
         if (cmbPrestamo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Seleccione un prestamo en el formulario", "Cancelada operacion",
                     JOptionPane.WARNING_MESSAGE);
@@ -275,29 +274,8 @@ public class PrestamoClientes extends javax.swing.JFrame {
     }// GEN-LAST:event_menuItemReportePagosActionPerformed
 
     private void btnSeleccionarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSeleccionarActionPerformed
-        Integer indice = cmbPrestamo.getSelectedIndex();
-        if (indice != 0) {
-            List<Prestamo> prestamos = ControladorPrestamo.getInstancia().recuperarPrestamos(cedula);
-            Prestamo prestamo = prestamos.get(indice - 1);
-            txtMonto.setText(Double.valueOf(prestamo.getMonto()).toString());
-            txtPlazo.setText(Integer.valueOf(prestamo.getPlazo()).toString());
-            txtTasa.setText(Double.valueOf(prestamo.getTasa()).toString());
-        }
+        seleccionar();
     }// GEN-LAST:event_btnSeleccionarActionPerformed
-
-    private void btnAgregarMensualidadActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAgregarMensualidadActionPerformed
-        try {
-            Integer indice = cmbPrestamo.getSelectedIndex();
-            Double saldo = Double.valueOf(txtMensualidad.getText());
-            if (indice != 0 && ControladorPrestamo.getInstancia().agregarMensualidad(cedula, indice - 1, saldo)) {
-                recargarMensualidades();
-            } else {
-                showMessageDialog(null, "Ingrese una mensualidad valida");
-            }
-        } catch (Exception e) {
-            showMessageDialog(null, "Ingrese un valor numerico correcto");
-        }
-    }// GEN-LAST:event_btnAgregarMensualidadActionPerformed
 
     private void btnNuevoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnNuevoPrestamoActionPerformed
         try {
@@ -313,12 +291,11 @@ public class PrestamoClientes extends javax.swing.JFrame {
     List<Prestamo> prestamos;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton btnAgregarMensualidad;
     private javax.swing.JButton btnNuevoPrestamo;
     private javax.swing.JButton btnSeleccionar;
     private javax.swing.JComboBox<String> cmbPrestamo;
+    private javax.swing.JMenuItem itemPagos;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -327,8 +304,7 @@ public class PrestamoClientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenuItem menuItemReportePagos;
     private javax.swing.JMenuItem menuItemReportePrestamos;
-    private javax.swing.JTable tablaMensualidad;
-    private javax.swing.JFormattedTextField txtMensualidad;
+    private javax.swing.JTable tablaPrestamos;
     private javax.swing.JTextField txtMonto;
     private javax.swing.JTextField txtPlazo;
     private javax.swing.JTextField txtTasa;

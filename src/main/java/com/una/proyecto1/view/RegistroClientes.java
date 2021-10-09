@@ -235,7 +235,6 @@ public class RegistroClientes extends javax.swing.JFrame implements Listener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemReporteClienteActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_itemReporteClienteActionPerformed
-        // TODO: por implementar
         JFileChooser dialogo = new JFileChooser();
         if (dialogo.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File archivo = dialogo.getSelectedFile();
