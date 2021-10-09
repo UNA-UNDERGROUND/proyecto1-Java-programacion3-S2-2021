@@ -37,6 +37,7 @@ public class Pagos extends javax.swing.JFrame {
 
     void init() {
         setTitle("pagos del prestamo " + (numeroPrestamo + 1) + ", cliente:" + cedula);
+        recargarMensualidades();
     }
 
     void recargarMensualidades() {

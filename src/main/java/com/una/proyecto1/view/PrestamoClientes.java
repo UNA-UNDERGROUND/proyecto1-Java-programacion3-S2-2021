@@ -58,7 +58,7 @@ public class PrestamoClientes extends javax.swing.JFrame {
             Prestamo prestamo = prestamos.get(indice - 1);
             txtMonto.setText(Double.valueOf(prestamo.getMonto()).toString());
             txtPlazo.setText(Integer.valueOf(prestamo.getPlazo()).toString());
-            txtTasa.setText(Double.valueOf(prestamo.getTasa()).toString());
+            txtTasa.setText(((Double)(Double.valueOf(prestamo.getTasa()) * 100)).toString());
         }
     }
 
@@ -280,7 +280,7 @@ public class PrestamoClientes extends javax.swing.JFrame {
     private void btnNuevoPrestamoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnNuevoPrestamoActionPerformed
         try {
             ControladorPrestamo.getInstancia().agregarPrestamo(cedula, Double.parseDouble(txtMonto.getText()),
-                    Integer.valueOf(txtPlazo.getText()), Double.parseDouble(txtTasa.getText()));
+                    Integer.valueOf(txtPlazo.getText()), Double.parseDouble(txtTasa.getText()) / 100 );
             recargarPrestamos();
         } catch (Exception e) {
             showMessageDialog(null, "Ingrese valores validos");

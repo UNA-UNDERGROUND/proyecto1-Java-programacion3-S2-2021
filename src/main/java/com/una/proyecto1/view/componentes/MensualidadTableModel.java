@@ -52,11 +52,11 @@ public class MensualidadTableModel extends AbstractTableModel {
 			case 0:
 				return String.format("%-2d", m.getNumero());
 			case 1:
-				return String.format("%8.0f", m.getSaldo());
+				return String.format("%8.2f", m.getSaldo());
 			case 2:
-				return String.format("%7.0f", m.getMontoInteres());
+				return String.format("%7.2f", m.getMontoInteres());
 			case 3:
-				return String.format("%8.0f", m.getMontoAmortizacion());
+				return String.format("%8.2f", m.getMontoAmortizacion());
 			case 4:
 				return new SimpleDateFormat("dd/MM/yyyy").format(m.getFecha());
 			default:

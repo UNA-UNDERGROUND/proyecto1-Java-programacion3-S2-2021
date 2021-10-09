@@ -40,7 +40,7 @@ public class Prestamo {
 	}
 
 	public double getCuota() {
-		Double cuotaInicial = (monto * tasa) / plazo;
+		Double cuotaInicial = (monto * tasa) / (1 - Math.pow(1 + tasa, -plazo));
 		for (Mensualidad mensualidad : mensualidades) {
 			if (mensualidad.getCuota() > cuotaInicial) {
 				// hay que recalcular la cuota
@@ -53,7 +53,7 @@ public class Prestamo {
 				return remanente / (1 - Math.pow(1 + tasa, -plazoRestante));
 			}
 		}
-		return (monto * tasa) / (1 - Math.pow(1 + tasa, -plazo));
+		return cuotaInicial; 
 	}
 
 	public List<Mensualidad> getMensualidades() {

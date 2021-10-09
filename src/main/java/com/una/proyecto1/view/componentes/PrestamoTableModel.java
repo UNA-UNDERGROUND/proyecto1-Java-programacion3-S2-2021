@@ -51,13 +51,14 @@ public class PrestamoTableModel extends AbstractTableModel {
 			case 0:
 				return String.format("%d", rowIndex + 1);
 			case 1:
-				return String.format("%.0f", p.getMonto());
+				return String.format("%.2f", p.getMonto());
 			case 2:
-				return String.format("%.0f", p.getTasa());
+				return String.format("%%%.0f", p.getTasa() * 100);
 			case 3:
 				return String.format("%d", p.getPlazo());
 			case 4:
-				return String.format("%.0f", p.getCuota());
+				Double cuota = p.getCuota();
+				return String.format("%.2f", cuota);
 			default:
 				return null;
 		}
